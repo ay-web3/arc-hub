@@ -4,334 +4,320 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
  <link rel="shortcut icon" href="assets/images/sHyVRItm_400x400.jpg" type="image/x-icon">
+ <link rel="stylesheet" href="style.css">
   <title>Arc Network Explorer Hub</title>
-  <style>
-    /* CSS Variables for Neon Theme */
-    :root {
-      --color-primary-neon: #66fcf1; /* Bright Cyan */
-      --color-secondary-accent: #45a29e; /* Darker Cyan */
-      --color-dark-bg: #0a1114; /* Extremely Dark Blue/Black */
-      --color-category-bg: #0e161c; /* Slightly Lighter BG for the Category Box */
-      --color-card-bg: #141f26; /* Dark slate blue */
-      --color-text-main: #e8e8e8;
-    }
-
-    /* Global Reset and Typography */
-    body {
-      font-family: 'Space Mono', 'Segoe UI', monospace, sans-serif;
-      background: var(--color-dark-bg);
-      color: var(--color-text-main);
-      margin: 0;
-      padding: 0;
-      line-height: 1.6;
-    }
-    
-    /* Header Styling */
-    header {
-      background: #111a21;
-      padding: 30px 20px;
-      text-align: center;
-      font-weight: 900;
-      font-size: 2.2em;
-      color: var(--color-primary-neon);
-      text-shadow: 0 0 15px var(--color-primary-neon);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-    
-    /* Container & Layout */
-    .container {
-      max-width: 1200px;
-      margin: 40px auto;
-      padding: 0 12px; /* Reduced side padding slightly */
-    }
-
-    /* --- NEW CATEGORY BOX STYLING --- */
-    .category-box {
-        background: var(--color-category-bg);
-        border: 1px solid var(--color-secondary-accent);
-        border-radius: 8px;
-        padding: 15px 20px 20px 20px; /* Padding inside the box */
-        margin-bottom: 35px; /* Space between categories */
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    }
-    
-    /* Section Heading */
-    h2 {
-      color: var(--color-primary-neon);
-      border-bottom: 2px solid var(--color-secondary-accent);
-      padding-bottom: 12px;
-      margin-top: 0; /* Remove top margin since it's inside the box */
-      margin-bottom: 20px;
-      font-size: 1.8em;
-      letter-spacing: 0.08em;
-      text-shadow: 0 0 3px var(--color-secondary-accent);
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-    
-    /* CSS GRID IMPLEMENTATION */
-    .card-grid {
-        display: grid;
-        gap: 20px;
-        grid-template-columns: 1fr;
-    }
-    
-    /* Medium screens (e.g., tablet) - 2 columns */
-    @media (min-width: 600px) {
-        .card-grid {
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        }
-    }
-
-    /* Large screens (e.g., desktop) - 3 columns for sections with 3+ cards */
-    @media (min-width: 1000px) {
-        .card-grid.full-row {
-            grid-template-columns: repeat(3, 1fr);
-        }
-    }
-
-    /* Card Styling */
-    .card {
-      background: var(--color-card-bg);
-      border-radius: 4px;
-      padding: 20px 24px;
-      border: 1px solid var(--color-secondary-accent);
-      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
-      position: relative;
-      overflow: hidden;
-      height: 100%;
-    }
-
-    /* Highlight Bar on the Left */
-    .card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 5px;
-        height: 100%;
-        background: var(--color-primary-neon);
-        box-shadow: 0 0 10px var(--color-primary-neon);
-        transition: all 0.4s;
-    }
-
-    .card:hover {
-      background: #1e2a33;
-      border-color: var(--color-primary-neon);
-      transform: scale(1.02);
-      box-shadow: 0 0 20px rgba(102, 252, 241, 0.4);
-    }
-
-    .card:hover::before {
-        width: 8px;
-        box-shadow: 0 0 20px var(--color-primary-neon);
-    }
-
-    /* Link Styling */
-    a {
-      color: var(--color-primary-neon);
-      text-decoration: none;
-      font-weight: 800;
-      font-size: 1.2em;
-      display: flex;
-      align-items: center;
-      margin-bottom: 5px;
-    }
-
-    a:hover {
-      color: var(--color-secondary-accent);
-      text-shadow: 0 0 1px var(--color-secondary-accent);
-    }
-
-    /* Link Icon Styling */
-    .link-icon {
-      margin-right: 10px;
-      font-size: 1.5em;
-      line-height: 1;
-      text-shadow: 0 0 4px rgba(102, 252, 241, 0.6);
-    }
-
-    /* Paragraph Styling within Card */
-    .card p {
-      color: #b0b0b0;
-      margin-top: 5px;
-      margin-left: 30px;
-      margin-bottom: 0;
-      font-size: 0.9em;
-    }
-
-    .arc-footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    height: 3%;
-    width: 100%;
-    background: #0d0d0d;
-    color: #cfcfcf;
-    text-align: center;
-    padding: 12px 0;
-    font-size: 14px;
-    border-top: 1px solid #222;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    z-index: 9999;
-}
-
-.arc-logo {
-    width: 20px;
-    height: 20px;
-}
-
-  </style>
+  
 </head>
 <body>
   <header>Arc Network Explorer Hub</header>
   <main class="container">
-    <h2>🔍 Explorers</h2>
-<div class="card">
-  <a href="https://testnet.arcscan.app/" target="_blank"><span class="link-icon">🌐</span>ArcScan (Testnet)</a>
-  <p>Official blockchain explorer for the Arc testnet. View transactions, blocks, and addresses.</p>
-</div>
 
-    <h2>💧 Faucets</h2>
-<div class="card">
-  <a href="https://faucet.circle.com" target="_blank"><span class="link-icon">💰</span>Arc Testnet Faucet (Circle)</a>
-  <p>Claim free testnet tokens to cover gas fees for development.</p>
-</div>
-<div class="card">
-  <a href="https://easyfaucetarc.xyz/" target="_blank"><span class="link-icon">🚰</span>Easy Faucet
-</a>
-  <p>Get up to 100 USDC (testnet) to develop on the ARC Network.</p>
-</div>
+  <!-- Explorers -->
+  <section class="category-box">
+    <h2>Explorers</h2>
+    <div class="card-grid">
 
-    <h2>📘 Documentation</h2>
-<div class="card">
-  <a href="https://docs.arc.network/arc/concepts/welcome-to-arc" target="_blank"><span class="link-icon">📖</span>Arc Official Docs</a>
-  <p>Official Arc documentation covering concepts, the SDK, RPC details, and development flow.</p>
-</div>
-<div class="card">
-  <a href="https://www.arc.network/litepaper" target="_blank"><span class="link-icon">📜</span>Arc Litepaper</a>
-  <p>The official document outlining the core vision and technical specifications of the Arc Network.</p>
-</div>
+      <div class="card marketplace-card">
+        <div class="project-body">
+          <h3>ArcScan (Testnet)</h3>
+          <p>Official blockchain explorer for the Arc testnet.</p>
+          <div class="project-tags">
+            <span>Explorer</span><span>Testnet</span>
+          </div>
+          <a class="explore-btn" href="https://testnet.arcscan.app/" target="_blank">Explore →</a>
+        </div>
+      </div>
 
-    <h2>🛠 Developer Tools</h2>
-<div class="card">
-  <a href="https://thirdweb.com" target="_blank"><span class="link-icon">📦</span>Thirdweb</a>
-  <p>A comprehensive platform to easily deploy, manage, and interact with smart contracts on Arc.</p>
-</div>
-<div class="card">
-  <a href="https://remix.ethereum.org" target="_blank"><span class="link-icon">✍️</span>Remix IDE</a>
-  <p>The leading online smart contract editor and development environment for Solidity.</p>
-</div>
+    </div>
+  </section>
 
-    <h2>🧱 Infrastructure (RPC)</h2>
-<div class="card">
-  <a href="https://www.blockscout.com/" target="_blank"><span class="link-icon">📡</span>Blockscout</a>
-  <p>A leading open-source blockchain explorer that can also be used as an RPC endpoint.</p>
-</div>
-<div class="card">
-  <a href="https://www.quicknode.com//" target="_blank"><span class="link-icon">⚡</span>Quicknode</a>
-  <p>High-performance Web3 infrastructure offering reliable RPC services for Arc.</p>
-</div>
+  <!-- Faucets -->
+  <section class="category-box">
+    <h2>Faucets</h2>
+    <div class="card-grid">
 
-    <h2>🎮 dApps & Projects</h2>
-<div class="card">
-  <a href="https://app.synthra.org/" target="_blank"><span class="link-icon">💲</span>Synthra swap
-</a>
-  <p>Next-Generation Concentrated Liquidity DEX</p>
-</div>
-<div class="card">
-  <a href="https://app.arcflow.finance/?inputCurrency=0x3600000000000000000000000000000000000000&outputCurrency=0x89B50855Aa3bE2F677cD6303Cec089B5F319D72a" target="_blank"><span class="link-icon">🤖</span>ArcFlow Finance
-</a>
-  <p>The Next Generation Innovative Dex on Arc L1 Blockchain..</p>
-</div>
-<div class="card">
-  <a href="https://defi-on-arc.netlify.app/swap" target="_blank"><span class="link-icon">🔗</span>DeFi On ARC Dex</a>
-  <p>Easily swap tokens.</p>
-</div>
-<div class="card">
-  <a href="https://arc-quiz-dapp.vercel.app/" target="_blank"><span class="link-icon">🧠</span>Arc Quiz</a>
-  <p>Where you learn about Arc ecosystem and earn usdc</p>
-</div>
-<div class="card">
-  <a href="https://arcindex.xyz/" target="_blank"><span class="link-icon">🧭</span>Arc Index</a>
-  <p>The curated project index for Arc Network.</p>
-</div>
-<div class="card">
-  <a href="community.html" target="_blank"><span class="link-icon">🧑‍💻</span>Arc Community Projects</a>
-  <p>A collection of community-built tools, wallet utilities, and more.</p>
-</div>
-    <h2>🌉 Bridges</h2>
-<div class="card">
-  <a href="https://defi-on-arc.netlify.app/bridge" target="_blank"><span class="link-icon">🔗</span>DeFi On ARC Bridge</a>
-  <p>Easily move assets (tokens) between other chains and the Arc Network.</p>
-</div>
+      <div class="card marketplace-card">
+        <div class="project-body">
+          <h3>Circle Faucet</h3>
+          <p>Claim free testnet tokens to cover gas fees.</p>
+          <div class="project-tags">
+            <span>USDC</span><span>Testnet</span>
+          </div>
+          <a class="explore-btn" href="https://faucet.circle.com" target="_blank">Explore →</a>
+        </div>
+      </div>
 
-    <h2>👛 Wallets</h2>
-<div class="card">
-  <a href="https://metamask.io" target="_blank"><span class="link-icon">🦊</span>MetaMask</a>
-  <p>The most widely used EVM-compatible wallet with excellent compatibility with Arc.</p>
-</div>
+      <div class="card marketplace-card">
+        <div class="project-body">
+          <h3>Easy Faucet</h3>
+          <p>Get up to 100 USDC testnet tokens.</p>
+          <div class="project-tags">
+            <span>USDC</span><span>Dev Tool</span>
+          </div>
+          <a class="explore-btn" href="https://easyfaucetarc.xyz/" target="_blank">Explore →</a>
+        </div>
+      </div>
 
-    <h2>📰 Community</h2>
-<div class="card">
-  <a href="https://x.com/arc" target="_blank"><span class="link-icon">🐦</span>Arc X (Twitter)</a>
-  <p>Official channel for the latest announcements and network updates.</p>
-</div>
-<div class="card">
-  <a href="https://discord.gg/buildonarc" target="_blank"><span class="link-icon">💬</span>Arc Discord</a>
-  <p>Direct access to the developer community, support channels, and general discussion.</p>
-</div>
-  </main>
+    </div>
+  </section>
+
+  <!-- Documentation -->
+<section class="category-box">
+  <h2>Documentation</h2>
+  <div class="card-grid">
+
+    <div class="card marketplace-card">
+      <div class="project-body">
+        <h3>Arc Official Docs</h3>
+        <p>Concepts, SDK, RPC setup, and development workflow.</p>
+        <div class="project-tags">
+          <span>Docs</span><span>SDK</span><span>Developers</span>
+        </div>
+        <a class="explore-btn" href="https://docs.arc.network/arc/concepts/welcome-to-arc" target="_blank">Explore →</a>
+      </div>
+    </div>
+
+    <div class="card marketplace-card">
+      <div class="project-body">
+        <h3>Arc Litepaper</h3>
+        <p>Core vision and technical specifications of Arc Network.</p>
+        <div class="project-tags">
+          <span>Litepaper</span><span>Protocol</span>
+        </div>
+        <a class="explore-btn" href="https://www.arc.network/litepaper" target="_blank">Explore →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Developer Tools -->
+<section class="category-box">
+  <h2>Developer Tools</h2>
+  <div class="card-grid">
+
+    <div class="card marketplace-card">
+      <div class="project-body">
+        <h3>Thirdweb</h3>
+        <p>Deploy, manage, and interact with smart contracts easily.</p>
+        <div class="project-tags">
+          <span>SDK</span><span>Contracts</span><span>Web3</span>
+        </div>
+        <a class="explore-btn" href="https://thirdweb.com" target="_blank">Explore →</a>
+      </div>
+    </div>
+
+    <div class="card marketplace-card">
+      <div class="project-body">
+        <h3>Remix IDE</h3>
+        <p>Online Solidity editor and development environment.</p>
+        <div class="project-tags">
+          <span>IDE</span><span>Solidity</span>
+        </div>
+        <a class="explore-btn" href="https://remix.ethereum.org" target="_blank">Explore →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Infrastructure -->
+<section class="category-box">
+  <h2>Infrastructure (RPC)</h2>
+  <div class="card-grid">
+
+    <div class="card marketplace-card">
+      <div class="project-body">
+        <h3>Blockscout</h3>
+        <p>Open-source explorer with RPC support.</p>
+        <div class="project-tags">
+          <span>RPC</span><span>Explorer</span>
+        </div>
+        <a class="explore-btn" href="https://www.blockscout.com/" target="_blank">Explore →</a>
+      </div>
+    </div>
+
+    <div class="card marketplace-card">
+      <div class="project-body">
+        <h3>QuickNode</h3>
+        <p>High-performance Web3 infrastructure provider.</p>
+        <div class="project-tags">
+          <span>RPC</span><span>Infrastructure</span>
+        </div>
+        <a class="explore-btn" href="https://www.quicknode.com/" target="_blank">Explore →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- dApps -->
+<section class="category-box">
+  <h2>dApps & Projects</h2>
+  <div class="card-grid">
+
+    <div class="card marketplace-card">
+      <div class="project-body">
+        <h3>Synthra Swap</h3>
+        <p>Next-generation concentrated liquidity DEX.</p>
+        <div class="project-tags">
+          <span>DEX</span><span>DeFi</span>
+        </div>
+        <a class="explore-btn" href="https://app.synthra.org/" target="_blank">Explore →</a>
+      </div>
+    </div>
+
+    <div class="card marketplace-card">
+      <div class="project-body">
+        <h3>ArcFlow Finance</h3>
+        <p>Innovative decentralized exchange on Arc L1.</p>
+        <div class="project-tags">
+          <span>DEX</span><span>Finance</span>
+        </div>
+        <a class="explore-btn" href="https://app.arcflow.finance/" target="_blank">Explore →</a>
+      </div>
+    </div>
+
+    <div class="card marketplace-card">
+      <div class="project-body">
+        <h3>DeFi on ARC</h3>
+        <p>Token swapping made simple.</p>
+        <div class="project-tags">
+          <span>Swap</span><span>DeFi</span>
+        </div>
+        <a class="explore-btn" href="https://defi-on-arc.netlify.app/swap" target="_blank">Explore →</a>
+      </div>
+    </div>
+
+    <div class="card marketplace-card">
+      <div class="project-body">
+        <h3>Arc Quiz</h3>
+        <p>Learn about Arc ecosystem and earn USDC.</p>
+        <div class="project-tags">
+          <span>Education</span><span>Rewards</span>
+        </div>
+        <a class="explore-btn" href="https://arc-quiz-dapp.vercel.app/" target="_blank">Explore →</a>
+      </div>
+    </div>
+
+    <div class="card marketplace-card">
+      <div class="project-body">
+        <h3>Arc Scheduler</h3>
+        <p>A decentralized USDC payment scheduler on Arc Testnet.</p>
+        <div class="project-tags">
+          <span>Automation</span><span>Schedule</span>
+        </div>
+        <a class="explore-btn" href="https://arc-scheduler.vercel.app/" target="_blank">Explore →</a>
+      </div>
+    </div>
+
+    <div class="card marketplace-card">
+      <div class="project-body">
+        <h3>Arc Index</h3>
+        <p>Curated directory of Arc ecosystem projects.</p>
+        <div class="project-tags">
+          <span>Directory</span><span>Ecosystem</span>
+        </div>
+        <a class="explore-btn" href="https://arcindex.xyz/" target="_blank">Explore →</a>
+      </div>
+    </div>
+
+    <div class="card marketplace-card">
+      <div class="project-body">
+        <h3>Community Projects</h3>
+        <p>Community-built tools and utilities.</p>
+        <div class="project-tags">
+          <span>Community</span><span>Tools</span>
+        </div>
+        <a class="explore-btn" href="community.html" target="_blank">Explore →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Bridges -->
+<section class="category-box">
+  <h2>Bridges</h2>
+  <div class="card-grid">
+
+    <div class="card marketplace-card">
+      <div class="project-body">
+        <h3>DeFi on ARC Bridge</h3>
+        <p>Move assets between chains and Arc network.</p>
+        <div class="project-tags">
+          <span>Bridge</span><span>Cross-chain</span>
+        </div>
+        <a class="explore-btn" href="https://defi-on-arc.netlify.app/bridge" target="_blank">Explore →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Wallets -->
+<section class="category-box">
+  <h2>Wallets</h2>
+  <div class="card-grid">
+
+    <div class="card marketplace-card">
+      <div class="project-body">
+        <h3>MetaMask</h3>
+        <p>EVM wallet with full Arc compatibility.</p>
+        <div class="project-tags">
+          <span>Wallet</span><span>EVM</span>
+        </div>
+        <a class="explore-btn" href="https://metamask.io" target="_blank">Explore →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Community -->
+<section class="category-box">
+  <h2>Community</h2>
+  <div class="card-grid">
+
+    <div class="card marketplace-card">
+      <div class="project-body">
+        <h3>Arc on X</h3>
+        <p>Official announcements and updates.</p>
+        <div class="project-tags">
+          <span>Social</span><span>News</span>
+        </div>
+        <a class="explore-btn" href="https://x.com/arc" target="_blank">Explore →</a>
+      </div>
+    </div>
+
+    <div class="card marketplace-card">
+      <div class="project-body">
+        <h3>Arc Discord</h3>
+        <p>Developer support and community chat.</p>
+        <div class="project-tags">
+          <span>Community</span><span>Support</span>
+        </div>
+        <a class="explore-btn" href="https://discord.gg/buildonarc" target="_blank">Explore →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+</main>
+
     <!-- FOOTER -->
-  <footer style="
-      margin-top: 60px;
-      padding: 30px 20px;
-      background: #0d1418;
-      border-top: 2px solid #45a29e;
-      text-align: center;
-      color: #66fcf1;
-      font-family: 'Space Mono', monospace;
-      font-size: 1.1em;
-      letter-spacing: 0.05em;
-      box-shadow: 0 -4px 20px rgba(0,0,0,0.4);
-    ">
+  
     
     
-    <div style="margin-bottom: 10px; font-weight: 800; text-shadow: 0 0 10px #66fcf1;">
-      Built with 💙 by <span style="color:#45a29e;">@Ay</span>
-    </div>
-
-    <div style="margin-bottom: 8px; font-size: 0.95em; color:#b9c7c7;">
-      Want to feature your Arc project? (free) 
-      <span style="color:#66fcf1; font-weight: 700;">DM me 👇</span>
-    </div>
-
-    <div style="margin-top: 10px; line-height: 1.8;">
-
-      <a href="https://x.com/OjoAyomideEmma4" target="_blank" 
-         style="color:#66fcf1; text-decoration:none; font-weight:700; text-shadow:0 0 6px #66fcf1;">
-         🐦 Twitter: @OjoAyomideEmma4
-      </a>
-      <br>
-
-      <a href="https://discord.com/users/ayfundz0" target="_blank" 
-         style="color:#66fcf1; text-decoration:none; font-weight:700; text-shadow:0 0 6px #66fcf1;">
-         💬 Discord: ayfundz0
-      </a>
-
-    </div>
 <footer class="arc-footer">
     <img src="assets/images/sHyVRItm_400x400.jpg" alt="Arc Logo" class="arc-logo">
     <span>Powered by Arc Testnet 🟢</span>
+    <span>Built by Ay-web3</span>
+    <span> <a href="https://x.com/OjoAyomideEmma4" target="_blank"  >@OjoAyomideEmma4</a></span>
 </footer>
 
-  </footer>
-
+  
 </body>
 </html>

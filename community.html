@@ -4,245 +4,96 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <link rel="shortcut icon" href="assets/images/sHyVRItm_400x400.jpg" type="image/x-icon">
+  <link rel="stylesheet" href="style.css">
   <title>Arc Network Explorer Hub</title>
-  <style>
-    /* CSS Variables for Neon Theme */
-    :root {
-      --color-primary-neon: #66fcf1; /* Bright Cyan */
-      --color-secondary-accent: #45a29e; /* Darker Cyan */
-      --color-dark-bg: #0a1114; /* Extremely Dark Blue/Black */
-      --color-card-bg: #141f26; /* Dark slate blue */
-      --color-text-main: #e8e8e8;
-      --neon-shadow: 0 0 5px var(--color-primary-neon), 0 0 10px var(--color-primary-neon);
-    }
-
-    /* Global Reset and Typography */
-    body {
-      font-family: 'Space Mono', 'Segoe UI', monospace, sans-serif;
-      background: var(--color-dark-bg);
-      color: var(--color-text-main);
-      margin: 0;
-      padding: 0;
-      line-height: 1.6;
-    }
-    
-    /* Header Styling */
-    header {
-      background: #111a21;
-      padding: 30px 20px;
-      text-align: center;
-      font-weight: 900;
-      font-size: 2.2em;
-      color: var(--color-primary-neon);
-      text-shadow: 0 0 15px var(--color-primary-neon);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-    
-    /* Container & Layout */
-    .container {
-      max-width: 1200px; /* Slightly wider to accommodate 3 columns better */
-      margin: 40px auto;
-      padding: 0 24px;
-    }
-    
-    /* Section Heading */
-    h2 {
-      color: var(--color-primary-neon);
-      border-bottom: 2px solid var(--color-secondary-accent);
-      padding-bottom: 12px;
-      margin-top: 50px;
-      margin-bottom: 20px; /* Added margin below header */
-      font-size: 1.8em;
-      letter-spacing: 0.08em;
-      text-shadow: 0 0 3px var(--color-secondary-accent);
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-    
-    /* --- CSS GRID IMPLEMENTATION --- */
-    .card-grid {
-        display: grid;
-        gap: 20px; /* Space between cards */
-        /* Default: single column on mobile */
-        grid-template-columns: 1fr;
-    }
-    
-    /* Medium screens (e.g., tablet) - 2 columns */
-    @media (min-width: 600px) {
-        .card-grid {
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        }
-    }
-
-    /* Large screens (e.g., desktop) - 3 columns for sections with 3+ cards */
-    @media (min-width: 1000px) {
-        .card-grid.full-row {
-            grid-template-columns: repeat(3, 1fr);
-        }
-    }
-
-    /* Card Styling */
-    .card {
-      background: var(--color-card-bg);
-      border-radius: 4px;
-      padding: 20px 24px;
-      /* Remove margin, replaced by grid gap */
-      border: 1px solid var(--color-secondary-accent);
-      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
-      position: relative;
-      overflow: hidden;
-      height: 100%; /* Important for grid alignment */
-    }
-
-    /* Highlight Bar on the Left */
-    .card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 5px;
-        height: 100%;
-        background: var(--color-primary-neon);
-        box-shadow: 0 0 10px var(--color-primary-neon);
-        transition: all 0.4s;
-    }
-
-    .card:hover {
-      background: #1e2a33;
-      border-color: var(--color-primary-neon);
-      transform: scale(1.02);
-      box-shadow: 0 0 20px rgba(102, 252, 241, 0.4);
-    }
-
-    .card:hover::before {
-        width: 8px;
-        box-shadow: 0 0 20px var(--color-primary-neon);
-    }
-
-    /* Link Styling */
-    a {
-      color: var(--color-primary-neon);
-      text-decoration: none;
-      font-weight: 800;
-      font-size: 1.2em;
-      display: flex;
-      align-items: center;
-      margin-bottom: 5px;
-    }
-
-    a:hover {
-      color: var(--color-secondary-accent);
-      text-shadow: 0 0 1px var(--color-secondary-accent);
-    }
-
-    /* Link Icon Styling */
-    .link-icon {
-      margin-right: 10px;
-      font-size: 1.5em;
-      line-height: 1;
-      text-shadow: 0 0 4px rgba(102, 252, 241, 0.6);
-    }
-
-    /* Paragraph Styling within Card */
-    .card p {
-      color: #b0b0b0;
-      margin-top: 5px;
-      margin-left: 30px;
-      margin-bottom: 0;
-      font-size: 0.9em;
-    }
-
-    .arc-footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    height: 3%;
-    width: 100%;
-    background: #0d0d0d;
-    color: #cfcfcf;
-    text-align: center;
-    padding: 12px 0;
-    font-size: 14px;
-    border-top: 1px solid #222;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    z-index: 9999;
-}
-
-.arc-logo {
-    width: 20px;
-    height: 20px;
-}
-  </style>
-</head>
+  </head>
 <body>
-  <header>Arc Network Explorer Hub</header>
-   <h2>🎮 Community dApps & Projects</h2>
-<div class="card">
-  <a href="https://infinityname.com/" target="_blank"><span class="link-icon">🏷️</span>InfinityName
-</a>
-  <p>Decentralized naming service on Arc, simplifying addresses into human-readable names.</p>
-</div>
 
-<div class="card">
-  <a href="https://payment-splitter-dusky.vercel.app" target="_blank"><span class="link-icon">🏷️</span>ApexDistro
-</a>
-  <p>It allows users to send multiple stablecoins (like USDC and EURC) at once.</p>
-</div>
+<header>Arc Network Explorer Hub</header>
 
-<div class="card">
-  <p>stay tuned for more</p>
-</a>
-  <p>...</p>
-</div>
+<main class="container">
 
-  <footer style="
-      margin-top: 60px;
-      padding: 30px 20px;
-      background: #0d1418;
-      border-top: 2px solid #45a29e;
-      text-align: center;
-      color: #66fcf1;
-      font-family: 'Space Mono', monospace;
-      font-size: 1.1em;
-      letter-spacing: 0.05em;
-      box-shadow: 0 -4px 20px rgba(0,0,0,0.4);
-    ">
+  <section class="category-box">
+    <h2>Community dApps & Projects</h2>
+
+    <div class="card-grid">
+
+      <!-- Project 1 -->
+      <div class="card marketplace-card">
+        <div class="project-body">
+
+          <!-- Optional logo -->
+          <!-- <img src="assets/images/infinityname.png" class="project-logo" /> -->
+
+          <h3>InfinityName</h3>
+          <p>Decentralized naming service on Arc, simplifying addresses into human-readable names.</p>
+
+          <div class="project-tags">
+            <span>Naming</span>
+            <span>Web3</span>
+            <span>Identity</span>
+          </div>
+
+          <a class="explore-btn" href="https://infinityname.com/" target="_blank">
+            Explore →
+          </a>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="card marketplace-card">
+        <div class="project-body">
+
+          <h3>ApexDistro</h3>
+          <p>Send multiple stablecoins (USDC, EURC) to many recipients in one transaction.</p>
+
+          <div class="project-tags">
+            <span>Payments</span>
+            <span>Stablecoins</span>
+            <span>Tool</span>
+          </div>
+
+          <a class="explore-btn" href="https://payment-splitter-dusky.vercel.app" target="_blank">
+            Explore →
+          </a>
+        </div>
+      </div>
+
+      <!-- Coming Soon -->
+      <div class="card marketplace-card">
+        <div class="project-body">
+
+          <h3>More projects coming</h3>
+          <p>New community-built dApps will appear here soon.</p>
+
+          <div class="project-tags">
+            <span>Coming Soon</span>
+          </div>
+
+          <span class="explore-btn" style="opacity:0.4; cursor:default;">
+            Stay tuned
+          </span>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+ 
     
     
-    <div style="margin-bottom: 10px; font-weight: 800; text-shadow: 0 0 10px #66fcf1;">
-      Built with 💙 by <span style="color:#45a29e;">@Ay</span>
-    </div>
-
-    <div style="margin-bottom: 8px; font-size: 0.95em; color:#b9c7c7;">
-      Want to feature your Arc project? (free) 
-      <span style="color:#66fcf1; font-weight: 700;">DM me 👇</span>
-    </div>
-
-    <div style="margin-top: 10px; line-height: 1.8;">
-
-      <a href="https://x.com/OjoAyomideEmma4" target="_blank" 
-         style="color:#66fcf1; text-decoration:none; font-weight:700; text-shadow:0 0 6px #66fcf1;">
-         🐦 Twitter: @OjoAyomideEmma4
-      </a>
-      <br>
-
-      <a href="https://discord.com/users/ayfundz0" target="_blank" 
-         style="color:#66fcf1; text-decoration:none; font-weight:700; text-shadow:0 0 6px #66fcf1;">
-         💬 Discord: ayfundz0
-      </a>
-
-    </div>
 <footer class="arc-footer">
     <img src="assets/images/sHyVRItm_400x400.jpg" alt="Arc Logo" class="arc-logo">
     <span>Powered by Arc Testnet 🟢</span>
+    <span>Built by Ay-web3</span>
+    <span> <a href="https://x.com/OjoAyomideEmma4" target="_blank"  >@OjoAyomideEmma4</a></span>
 </footer>
 
-  </footer>
+  
+
 </body>
+
 </html>
